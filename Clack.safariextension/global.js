@@ -1,8 +1,11 @@
-function flipIcon() {
-    safari.extension.toolbarItems.forEach(function (ti) {
-        ti.image = safari.extension.baseURI + (ti.image.match('left.png') ? 'right' : 'left') + '.png';
-    });
-}
+var requestHandlers = {
+    flipIcon: function () {
+        safari.extension.toolbarItems.forEach(function (ti) {
+            ti.image = safari.extension.baseURI + (ti.image.match('left.png') ? 'right' : 'left') + '.png';
+        });
+    }
+};
+
 function handleCommand(e) {
     if (e.command === 'flipOther') {
         safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('sendRequest', {
@@ -15,9 +18,7 @@ function handleCommand(e) {
 function handleMessage(e) {
     if (e.name === 'handleRequest') {
         if (e.message.origin !== safari.extension.baseURI) {
-            if (e.message.request === 'flipIcon') {
-                flipIcon();
-            }
+            requestHandlers[e.message.request]();
         }
     }
 }
