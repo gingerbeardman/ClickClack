@@ -1,0 +1,1 @@
+This is a simple demonstration of the use of [`window.postMessage`](https://developer.mozilla.org/en/DOM/window.postMessage) to pass messages between two separate Safari extensions. There are a pair of extensions here, named Click and Clack. Each extension has a toolbar item. Clicking a toolbar item will cause the other extension to flip its toolbar icon.
